@@ -1,21 +1,25 @@
 import {
     generateUserCredentials,
-    checkUserCredentials
-} from '../api/database/mongoose/repositories/authentication.repo.ts'
+    checkUserCredentials,
+    findUserByEmail
+} from '../adapters/database/mongoose/repositories/authentication.repo.ts'
 
 
 import {
-
-} from '../app/usecases/authentication/registerUser.useCase.ts'
+    registerUser_UseCase,
+    findUserByMail_useCase,
+} from '../app/usecases/index.ts'
 
 
 const useCases: any = {
-
+    registerUser_UseCase,
+    findUserByMail_useCase
 };
 
 const repositories: any = {
     generateUserCredentials,
-    checkUserCredentials
+    checkUserCredentials,
+    findUserByEmail
 };
 
 export = {

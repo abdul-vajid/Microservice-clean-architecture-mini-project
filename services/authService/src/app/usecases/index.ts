@@ -1,10 +1,8 @@
-// import  from './authentication/registerUser.useCase.ts';
+import { registerUser_UseCase } from './authentication/registerUser.UseCase.ts';
+import { findUserByMail_useCase } from './authentication/findUserByMail.useCase.ts';
 
 
-// const authentication: any = {
-//     authSchema,
-// };
-
-// export {
-//     authentication
-// }
+export {
+    registerUser_UseCase,
+    findUserByMail_useCase
+}

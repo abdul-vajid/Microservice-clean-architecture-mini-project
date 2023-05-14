@@ -5,8 +5,9 @@ import RabbitMQClient from './infrastructure/rabbitmq/client.ts'
 import Database from '../src/infrastructure/mongodb/connection.ts'
 // import { corsMiddleware } from '../src/api/middlewares/cors.middleware.ts'
 import errorHandler from './app/errors/errorHandler.ts';
-import authRoutes from '../src/adapters/routes/authRoutes.ts'
+import {routes} from '../src/adapters/routes'
 import bodyParser from 'body-parser';
+import depentencies from './config/depentencies.ts';
 
 const app = express();
 // app.use(corsMiddleware);
@@ -19,7 +20,7 @@ if (process.env.ENV === "dev") app.use(morgan("dev"));
 Database.connectMongoDB()
 
 
-app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1", routes(depentencies));
 
 app.use((req: Request, res: Response) => {
     res.status(404).json({ success: false, status: 404, message: "Not found" });

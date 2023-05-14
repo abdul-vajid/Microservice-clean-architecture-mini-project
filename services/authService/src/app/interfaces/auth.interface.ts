@@ -6,3 +6,8 @@ export interface authDb extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export interface userData {
+    email: string;
+    password: string;
+}

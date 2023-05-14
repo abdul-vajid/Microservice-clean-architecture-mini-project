@@ -1,19 +1,12 @@
 import express from "express";
-import { Request, Response, NextFunction } from 'express';
-import {
-    registerUser,
-    checkUserCredentials,
-    test
-} from '../controllers/authController.ts'
 
+import {authController} from '../controllers';
 
+export = (dependencies: any) => {
+    const router = express.Router();
+    const { registerUser } = authController(dependencies);
 
-const router = express.Router();
+    router.post('/registerUser', registerUser)
 
-router.get('/test', test);
-
-router.post('/register', registerUser);
-
-router.post('/login', checkUserCredentials)
-
-export default router;
+    return router;
+};

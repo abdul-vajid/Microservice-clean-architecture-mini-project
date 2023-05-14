@@ -1,12 +1,50 @@
 import { Request, Response, NextFunction } from 'express';
-import { Validators } from '../../app/utils/index.ts';
-import { schemas } from '../database/mongoose/index.ts'
-import ErrorResponse from '../../app/errors/errorResponse.ts';
-import RabbitMQClient from '../../infrastructure/rabbitmq/client.ts';
-import config from '../../infrastructure/rabbitmq/rabbitmq.config.ts';
+import { Validators } from '../../../app/utils/index.ts';
+import ErrorResponse from '../../../app/errors/errorResponse.ts';
+// import RabbitMQClient from '../../infrastructure/rabbitmq/client.ts';
+// import config from '../../infrastructure/rabbitmq/rabbitmq.config.ts';
 import bcrypt from "bcryptjs";
-import mongoose from 'mongoose';
 
+
+export = (depentencies: any): any => {
+    const {
+        useCases: {
+            registerUser_UseCase,
+            findUserByMail_useCase
+        }
+    } = depentencies;
+
+    const registerUser = async (req: Request, res: Response, next: NextFunction) => {
+        const { error, value: data } = await Validators.userRegistration.validateUserRegistration.validate(req.body, { abortEarly: true });
+        let hashedPassword: string;
+        try {
+            const userExist = await findUserByMail_useCase(depentencies).execute(data.email)
+            if (userExist) {
+                return ErrorResponse.forbidden("Email already registered, try another mail")
+            }
+            const saltRounds: number = Number(process.env.SALT_ROUNDS) || 10;
+            const generatedSalt: string = await bcrypt.genSalt(saltRounds);
+            hashedPassword = await bcrypt.hash(data.password, generatedSalt);
+        } catch (error) {
+            next(error)
+        }
+
+        let savedData: any;
+        try {
+            console.log('Debug 1', data.email, hashedPassword);
+            const user = {
+                email: data.email,
+                password: hashedPassword
+            }
+            savedData = await registerUser_UseCase(depentencies).execute(user)
+            return res.status(200).send({ status: 200, message: "User registred successfully!", data: savedData })
+        } catch (error) {
+            next(error)
+        }
+    };
+    return registerUser
+}
+/*
 export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
     const { error, value: data } = await Validators.userRegistration.validateUserRegistration.validate(req.body, { abortEarly: true });
     const authModel = mongoose.model('authentication', schemas.authSchema);
@@ -93,3 +131,4 @@ export const test = async (req: Request, res: Response, next: NextFunction) => {
         console.log('Error from test controller : ', error);
     }
 }
+*/
