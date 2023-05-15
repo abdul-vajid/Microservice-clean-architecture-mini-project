@@ -56,6 +56,7 @@ class RabbitMQClient {
     }
 
     async Responder(data: any, correlationId: string, replyToQueue: string) {
+        console.log(">> >> Debug log : insider responder, log data = ", data)
         if (!this.isInitialized) {
             await this.initialize()
         }

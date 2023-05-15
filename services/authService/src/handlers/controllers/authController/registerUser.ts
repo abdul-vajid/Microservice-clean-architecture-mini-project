@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserRegistration, ErrorResponse } from '../../../utils/index.ts';
-// import RabbitMQClient from '../../infrastructure/rabbitmq/client.ts';
-// import config from '../../infrastructure/rabbitmq/rabbitmq.config.ts';
+import config from '../../../infrastructure/rabbitmq/rabbitmq.config.ts';
 import bcrypt from "bcryptjs";
 
 
@@ -10,7 +9,8 @@ export = (depentencies: any): any => {
         useCases: {
             registerUser_UseCase,
             findUserByMail_useCase
-        }
+        },
+        RabbitMQClient
     } = depentencies;
 
     const registerUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -37,9 +37,33 @@ export = (depentencies: any): any => {
                 password: hashedPassword
             }
             savedData = await registerUser_UseCase(depentencies).execute(user)
-            return res.status(200).send({ status: 200, message: "User registred successfully!", data: savedData })
         } catch (error) {
             next(error)
+        }
+
+        try {
+            const result: any = await RabbitMQClient.Requester({
+                userId: savedData._id,
+                email: savedData.email,
+                fullname: data.fullname,
+                phoneNumber: data.phoneNumber,
+                city: data.city,
+                country: data.country
+            }, config.rabbitMq.queues.userQueue, "registerUser");
+            console.log(">> >> Debug log :result", result);
+            
+            if (result.isError === true) {
+                next(ErrorResponse.forbidden(result.message));
+            } else {
+                return res.status(201).send({
+                    success: true,
+                    status: 201,
+                    message: "Account created successfully",
+                    data: result
+                })
+            }
+        } catch (error) {
+            return next(ErrorResponse.internalError('Something went wrong, try again!'))
         }
     };
     return registerUser

@@ -1,16 +1,21 @@
+import eventHanlder from "../../handlers/services/index";
+import { depentencies } from '../../utils/';
 import rabbitMQClient from "./client"
+
 
 export default class MessageHandler {
     static async handle(
         operation: string,
         data: any,
         correlationId: string,
-        replyTo: string
+        replyTo: string,
     ) {
+        const { saveUserData } = eventHanlder(depentencies)
         let response = {}
         switch (operation) {
-            case "getCartDetails":
-                response = ""
+            case "registerUser":
+                response = await saveUserData(data)
+                console.log(">> >> Debug log 1: response in messagehandler",response);
                 break;
             default:
                 response = "Request-key notfound"

@@ -1,5 +1,5 @@
 import mongoose, { Document } from "mongoose";
-import { IUserData } from "../../../../entities/auth.entity";
+import { IUserData } from "../../../../entities/auth.entities";
 
 const authSchema = new mongoose.Schema(
     {

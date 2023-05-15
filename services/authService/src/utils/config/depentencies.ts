@@ -1,3 +1,4 @@
+import  RabbitMQClient from '../../infrastructure/rabbitmq/client.ts'
 import {
     generateUserCredentials,
     checkUserCredentials,
@@ -22,6 +23,7 @@ const repositories: any = {
 };
 
 export = {
+    RabbitMQClient,
     useCases,
     repositories
 };

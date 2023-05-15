@@ -31,6 +31,7 @@ export default class Producer {
     }
 
     async respondingProducer(data: any, correlationId: string, replyToQueue: string) {
+        console.log(">> >> Debug log : inside respondingProducer, log data = ", data)
         this.channel.sendToQueue(
             replyToQueue,
             Buffer.from(JSON.stringify(data)),

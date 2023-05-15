@@ -1,4 +1,4 @@
-import { User } from "../../entities/auth.entity.ts";
+import { User } from "../../entities/auth.entities.ts";
 import { IUserData } from "../../utils/interfaces/IUserData.ts";
 
 export const registerUser_UseCase = (dependencies: any) => {
