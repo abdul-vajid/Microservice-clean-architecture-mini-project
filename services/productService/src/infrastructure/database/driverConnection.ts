@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { ProductEntity } from "../../adapters/database/typeorm/entities/product.entities";
 
 export class driverConnection {
   public static uri: string;
@@ -15,6 +16,8 @@ export class driverConnection {
       username: "postgres",
       password: "postgres",
       database: process.env.POSTGRES_DB,
+      entities: [ProductEntity],
+      synchronize: true
     });
 
     dataSource.initialize()

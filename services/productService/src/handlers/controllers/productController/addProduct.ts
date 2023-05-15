@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 // import {ErrorResponse } from '../../../utils/index.ts';
-import config from '../../../infrastructure/rabbitmq/rabbitmq.config.ts';
 
 
 export = (depentencies: any): any => {

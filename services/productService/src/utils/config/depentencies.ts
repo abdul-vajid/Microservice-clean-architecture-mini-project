@@ -1,29 +1,23 @@
-// import  RabbitMQClient from '../../infrastructure/rabbitmq/client.ts'
-// import {
-//     generateUserCredentials,
-//     checkUserCredentials,
-//     findUserByEmail
-// } from '../../adapters/database/mongoose/repositories/authentication.repo.ts'
+import RabbitMQClient from '../../infrastructure/rabbitmq/client.ts'
+import {
+    createProduct
+} from '../../adapters/database/typeorm/repositories/product.repo.ts'
 
 
-// import {
-//     registerUser_UseCase,
-//     findUserByMail_useCase,
-// } from '../../usecases/index.ts'
+import {
+    addProduct_UseCase
+} from '../../usecases/addProduct.useCase.ts'
 
-// const useCases: any = {
-//     registerUser_UseCase,
-//     findUserByMail_useCase
-// };
+const useCases: any = {
+    addProduct_UseCase
+};
 
-// const repositories: any = {
-//     generateUserCredentials,
-//     checkUserCredentials,
-//     findUserByEmail
-// };
+const repositories: any = {
+    createProduct
+};
 
-// export = {
-//     RabbitMQClient,
-//     useCases,
-//     repositories
-// };
+export = {
+    RabbitMQClient,
+    useCases,
+    repositories
+};
