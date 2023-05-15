@@ -74,11 +74,15 @@ services:
 
   product-db:
     container_name: product-db
-    image: mongo
+    image: postgres
     ports:
-      - "27022:27017"
+      - "5432:5432"
     volumes:
       - product-data:/data/db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ecom-rabbit-ts
     networks:
       - ecom-rabbit-ts-network
 
@@ -91,7 +95,7 @@ services:
       - "3002:3000"
     environment:
       - PORT=3000
-      - MONGO_URI=mongodb://product-db:27017/ecom-rabbit-ts
+      - DATABASE_URI=postgres://postgres:postgres@postgres:5432/ecom-rabbit-ts
       - MESSAGE_BUS=amqp://rabbitmq
     depends_on:
       rabbitmq:
