@@ -3,7 +3,7 @@ import { MongooseConnection } from './driverConnection.ts';
 class MongoDbConnection extends MongooseConnection {
     private static instance: MongoDbConnection;
     constructor() {
-        const uri: string = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/my_test_db";
+        const uri: string = process.env.MONGO_URI;
         super(uri as string);
     }
 
