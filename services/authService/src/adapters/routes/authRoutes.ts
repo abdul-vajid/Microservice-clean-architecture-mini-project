@@ -1,6 +1,6 @@
 import express from "express";
 
-import {authController} from '../../controllers';
+import {authController} from '../../handlers/controllers';
 
 export = (dependencies: any) => {
     const router = express.Router();

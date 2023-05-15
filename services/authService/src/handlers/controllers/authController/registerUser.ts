@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserRegistration, ErrorResponse } from '../../utils/index.ts';
+import { UserRegistration, ErrorResponse } from '../../../utils/index.ts';
 // import RabbitMQClient from '../../infrastructure/rabbitmq/client.ts';
 // import config from '../../infrastructure/rabbitmq/rabbitmq.config.ts';
 import bcrypt from "bcryptjs";

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UserLogin, ErrorResponse } from '../../utils/index.ts';
+import { UserLogin, ErrorResponse } from '../../../utils/index.ts';
 import bcrypt from "bcryptjs";
 
 
