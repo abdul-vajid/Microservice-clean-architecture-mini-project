@@ -19,7 +19,7 @@ export default class Consumer {
                     const { correlationId, replyTo } = message.properties
                     const operation = message.properties.headers.function
                     if (!correlationId || !replyTo) {
-                        console.log(Some properties are missing..);
+                        console.log("Some properties are missing..");
                     } else {
                         await MessageHandler.handle(operation, JSON.parse(message.content.toString()), correlationId, replyTo)
                     }

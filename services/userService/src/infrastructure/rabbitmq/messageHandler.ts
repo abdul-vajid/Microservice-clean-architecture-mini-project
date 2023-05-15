@@ -1,4 +1,4 @@
-import rabbitMQClient from ./client
+import rabbitMQClient from "./client"
 
 export default class MessageHandler {
     static async handle(
@@ -8,13 +8,12 @@ export default class MessageHandler {
         replyTo: string
     ) {
         let response = {}
-        console.log(the operation is, operation);
         switch (operation) {
-            case getCartDetails:
-                response = 
+            case "getCartDetails":
+                response = ""
                 break;
             default:
-                response = Request-key notfound
+                response = "Request-key notfound"
                 break;
         }
 

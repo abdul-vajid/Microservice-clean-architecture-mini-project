@@ -1,8 +1,8 @@
-import { Channel, Connection, connect } from amqplib
-import config from ./rabbitmq.config
-import Consumer from ./consumer;
-import Producer from ./producer;
-import { EventEmitter } from events;
+import { Channel, Connection, connect } from "amqplib"
+import config from "./rabbitmq.config"
+import Consumer from "./consumer";
+import Producer from "./producer";
+import { EventEmitter } from "events";
 
 class RabbitMQClient {
 
@@ -35,8 +35,8 @@ class RabbitMQClient {
             this.producerChannel = await this.connection.createChannel();
             this.consumerChannel = await this.connection.createChannel();
 
-            const { queue: queue } = await this.consumerChannel.assertQueue(config.rabbitMq.queues.cartQueue, { exclusive: true });
-            const { queue: replyQueueName } = await this.consumerChannel.assertQueue(, { exclusive: true });
+            const { queue: queue } = await this.consumerChannel.assertQueue(config.rabbitMq.queues.userQueue, { exclusive: true });
+            const { queue: replyQueueName } = await this.consumerChannel.assertQueue("", { exclusive: true });
 
             this.producer = new Producer(this.producerChannel, replyQueueName, this.eventEmitter);
             this.consumer = new Consumer(this.consumerChannel);
@@ -44,7 +44,7 @@ class RabbitMQClient {
             this.consumer.consumeMessages(replyQueueName, this.eventEmitter);
             this.isInitialized = true;
         } catch (error) {
-            console.error(** rabbitmq error..., error)
+            console.error("** rabbitmq error..., error")
         }
     }
 
