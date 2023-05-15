@@ -1,2 +1,14 @@
 services/authService/node_modules
 services/authService/.env
+
+services/userService/node_modules
+services/userService/.env
+
+services/productService/node_modules
+services/productService/.env
+
+services/cartService/node_modules
+services/cartService/.env
+
+services/orderService/node_modules
+services/orderService/.env

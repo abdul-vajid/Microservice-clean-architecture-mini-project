@@ -2,12 +2,12 @@ import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 import dotenv from "dotenv";
 import RabbitMQClient from './infrastructure/rabbitmq/client.ts'
-import Database from '../src/infrastructure/mongodb/connection.ts'
+import Database from './infrastructure/mongodb/dbConnection.ts'
 // import { corsMiddleware } from '../src/api/middlewares/cors.middleware.ts'
-import errorHandler from './app/errors/errorHandler.ts';
+import errorHandler from './utils/errors/errorHandler.ts';
 import {routes} from '../src/adapters/routes'
 import bodyParser from 'body-parser';
-import depentencies from './config/depentencies.ts';
+import {depentencies} from './utils/index.ts';
 
 const app = express();
 // app.use(corsMiddleware);

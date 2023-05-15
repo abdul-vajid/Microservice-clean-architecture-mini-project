@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
+import { IUserData } from "../../../../entities/auth.entity";
 
 const authSchema = new mongoose.Schema(
     {
@@ -28,4 +29,9 @@ const authSchema = new mongoose.Schema(
     }
 );
 
-export default mongoose.model("authentication", authSchema); 
+export default mongoose.model("authentication", authSchema);
+
+export interface IAuthDb extends Document, IUserData{
+    createdAt: Date;
+    updatedAt: Date;
+}

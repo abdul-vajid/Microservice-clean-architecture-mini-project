@@ -28,8 +28,9 @@ services
 4. Adapters and infrastructure
 
 
+Arcitecture 1
 
-<!-- services
+services
 └── authService
     ├── src
     │   ├── adpters
@@ -44,8 +45,33 @@ services
     │   │   ├── interfaces
     │   │   ├── usecases
     │   │   └── utils
-    │   ├── infrastructure - 4
+    │   ├── infrastructure
     │   │   ├── mongodb
     │   │   └── rabbitmq
     │   └── main.ts
-    └── ... -->
+    └── ...
+
+
+Arcitecture 2
+
+    services
+└── authService
+    ├── src
+    │   ├── adpters
+    │   │   ├── schema
+    │   │   ├── repositories  
+    │   │   └── routes
+    │   ├── app
+    │   │   ├── entities 
+    │   │   ├── errors
+    │   │   ├── interfaces
+    │   │   └── utils
+    │   ├── controllers
+    │   ├── usecases
+    │   ├── infrastructure
+    │   │   ├── mongodb
+    │   │   │   ├── dbconnection.ts
+    │   │   │   └── driverConnection.ts
+    │   │   └── rabbitmq
+    │   └── main.ts
+    └── ...

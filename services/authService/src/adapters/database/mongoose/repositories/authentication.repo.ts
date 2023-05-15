@@ -1,25 +1,22 @@
-import {authSchema} from "../index";
-import { authDb, userData } from "../../../../app/interfaces/auth.interface"
+import { authSchema, IAuthDb } from "../index";
 
 
-export const generateUserCredentials = async (user: userData): Promise<authDb> => {
-    console.log('Debug 4', user);
-    console.log('Debug 5', user.email);
-    console.log('Debug 6', user.password);
+export const generateUserCredentials = async (user: IAuthDb): Promise<IAuthDb> => {
     const mongooseObject = new authSchema({
-        email : user.email,
-        password : user.password
+        email: user.email,
+        password: user.password
     });
-    return await mongooseObject.save() as authDb
+    return await mongooseObject.save() as IAuthDb
 }
 
 
-export const checkUserCredentials = async (email: string, password: string): Promise<authDb> => {
+export const checkUserCredentials = async (email: string, password: string): Promise<IAuthDb> => {
     const mongooseObject = await authSchema.findOne({ email: email, password: password })
-    return await mongooseObject as authDb
+    return await mongooseObject as IAuthDb
 }
 
-export const findUserByEmail = async (email: string): Promise<authDb> => {
+export const findUserByEmail = async (email: string): Promise<IAuthDb> => {
     const mongooseObject = await authSchema.findOne({ email: email })
-    return await mongooseObject as authDb
+    
+    return mongooseObject as IAuthDb
 }

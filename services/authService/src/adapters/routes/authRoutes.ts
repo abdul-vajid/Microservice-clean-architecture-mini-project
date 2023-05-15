@@ -1,12 +1,14 @@
 import express from "express";
 
-import {authController} from '../controllers';
+import {authController} from '../../controllers';
 
 export = (dependencies: any) => {
     const router = express.Router();
-    const { registerUser } = authController(dependencies);
+    const { registerUser, loginUser } = authController(dependencies);
 
     router.post('/registerUser', registerUser)
+
+    router.post('/login', loginUser)
 
     return router;
 };
